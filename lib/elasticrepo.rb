@@ -1,7 +1,12 @@
-module Elasticrepo 
-  API_BASE = "api.github.com"
-  autoload :RepoSubset, "elasticrepo/repo_subset"
+require "elasticrepo/version"
+require "yajl"
 
-  class ElasticrepoError < StandardError
-  end
+module Elasticrepo 
+
+  autoload :RepoSubset, "elasticrepo/repo_subset"
+  autoload :Extractor, "elasticrepo/extractor"
+
+  #class ElasticrepoError < StandardError
+  #end
+
 end

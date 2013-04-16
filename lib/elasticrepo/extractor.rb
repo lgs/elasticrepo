@@ -1,16 +1,15 @@
 module Elasticrepo
   class Extractor
-    # explicit attr_accessor
-    attr_reader :owner
-    attr_writer :owner
+    attr_reader :repositories
 
-    # ex: results = Elasticrepo::Extractor.starred_repos_by_user(owner = "lapaty")
-    def self.starred_repos_by_user(owner)
-      # GET /users/:user/starred 
-      # ex: /users/lapaty/starred 
-      # --> array of hashes
-      parsed = Octokit.starred(owner)
-      repositories = parsed.map do |item|
+    # GET /users/:user/starred 
+    # ex: /users/lapaty/starred --> array of hashes
+    # ex: results = Elasticrepo::Extractor.new(owner = "lapaty")
+
+    def initialize(owner)
+      @owner = owner
+      parsed = Octokit.starred(@owner)
+      @repositories = parsed.map do |item|
         RepoSubset.new(item)
       end
     end

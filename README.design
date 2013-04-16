@@ -1,9 +1,8 @@
 
-
 elasticrepo
 	repo_subset
 	extractor
-	indexer
+	indexer     <-- ongoing 
 	version
 
 

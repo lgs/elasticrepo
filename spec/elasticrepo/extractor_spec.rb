@@ -5,33 +5,59 @@ require "spec_helper"
   # https://github.com/pengwynn/octokit/blob/master/lib/octokit/client/users.rb
 
   describe Elasticrepo::Extractor do
-  
-    context "get list of repos starred by a user" do
-      describe "#new" do # Elasticrepo::Extractor.new("lapaty").repositories
-        let(:parsed )   { Yajl::Parser.parse(fixture("repositories.json").read) }
-        subject(:ockto_get) { Elasticrepo::Extractor.new("lapaty").repositories }
-  
-        # just to show the content while rspec'ing
+    let(:fixture_repos ) { Yajl::Parser.parse(fixture("repositories.json").read) }
+    #subject(:live_repos)     { Elasticrepo::Extractor.new("lapaty").repositories }
+
+    subject(:live_repos) { fixture_repos }
+
+    describe "#new" do 
+      context "the list of repos is well formed" do
+        # show var content while rspec'ing
         it "print" do
-          print "parsed: #{parsed[1]["id"]} \n + \n +\n"
-          print "ockto_get: #{ockto_get[1]["id"]} \n + \n +\n"
+          print "fixture_repos: #{fixture_repos[1]["id"]} \n + \n +\n"
+          print "live_repos: #{live_repos[1]["id"]} \n + \n +\n"
         end
   
-        it { parsed.should be_a(Array) }
-        it { ockto_get.should be_a(Array) }
-        it { parsed.should_not be_empty }
-        it { ockto_get.should_not be_empty }
+        # check well forming data set
+        it { fixture_repos.should be_a(Array) }
+        it { live_repos.should be_a(Array) }
+        it { fixture_repos.should_not be_empty }
+        it { live_repos.should_not be_empty }
   
+        # compare fixture to live API V3 
         its(:size)      { should eq(2) }
-        its(["id"])     { "#{ockto_get[1]['id']}".should eq("#{parsed[1]['id']}") }
-        its(["owner"])  { "#{ockto_get[1]['id']}".should eq("#{parsed[1]['id']}") }
-        its(["name"])   { "#{ockto_get[1]['id']}".should eq("#{parsed[1]['id']}") }
-      end
-    end
+        its(["id"])     { "#{live_repos[1]['id']}".should eq("#{fixture_repos[1]['id']}") }
+        its(["owner"])  { "#{live_repos[1]['id']}".should eq("#{fixture_repos[1]['id']}") }
+        its(["name"])   { "#{live_repos[1]['id']}".should eq("#{fixture_repos[1]['id']}") }
+      end # "the list of repos is well formed"
+    end # describe "#new"
 
-  end
+    describe "#extrac" do 
+      context "get list of repos starred by user" do
+        it "checks extracted fields for each repository" do
 
-  
-  
-  
+          print "\n live_repos: #{live_repos[0]} \n"
+          print "\n live_repos: #{live_repos[1]} \n"
+
+          print "\n live_repos: #{live_repos[0]['id']} \n"
+          print "\n live_repos: #{live_repos[1]['id']} \n"
+
+          @subset = Array
+          live_repos.each do |repo|
+            @subset <<  Elasticrepo::RepoSubset.new(repo)
+          end
+        
+          print "\n @subset: #{@subset[0]} \n"
+          print "\n @subset: #{@subset[1]} \n"
+
+          print "\n @subset: #{@subset[0]['id']} \n"
+          print "\n @subset: #{@subset[1]['id']} \n"
+
+
+        end
+      end # "get list of repos starred by a user"
+    end # describe "#extrac"
+
+  end # describe Elasticrepo::Extractor
+
   

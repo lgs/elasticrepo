@@ -7,7 +7,7 @@ require "spec_helper"
     let(:parsed) { Yajl::Parser.parse(fixture("repository.json").read) }
     subject { Elasticrepo::RepoSubset.new(parsed) }
 
-    context "fails extracting:" do
+    context "checks extracted fields"  do
       its(:id) { should eq(2126244) }
       its(:owner) { should eq("twitter") }
       its(:name) { should eq("bootstrap") }

@@ -5,6 +5,9 @@ module Elasticrepo
     def initialize
     end
 
+    def import
+
+    end 
 #    elapsed = Benchmark.realtime do
 #      Tire.index 'repository' do
          

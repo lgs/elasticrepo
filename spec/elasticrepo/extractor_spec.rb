@@ -42,18 +42,18 @@ require "spec_helper"
           print "\n live_repos: #{live_repos[0]['id']} \n"
           print "\n live_repos: #{live_repos[1]['id']} \n"
 
-          @subset = Array
+          @subset = Array.new
           live_repos.each do |repo|
             @subset <<  Elasticrepo::RepoSubset.new(repo)
           end
         
-          print "\n @subset: #{@subset[0]} \n"
-          print "\n @subset: #{@subset[1]} \n"
+          print "\n @subset: #{@subset.size} \n"
 
-          print "\n @subset: #{@subset[0]['id']} \n"
-          print "\n @subset: #{@subset[1]['id']} \n"
+          print "\n @subset: #{@subset[0].inspect} \n"
+          print "\n @subset: #{@subset[1].inspect} \n"
 
-
+          print "\n @subset: #{@subset[0].id} \n"
+          print "\n @subset: #{@subset[1].id} \n"
         end
       end # "get list of repos starred by a user"
     end # describe "#extrac"

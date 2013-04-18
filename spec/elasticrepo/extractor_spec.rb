@@ -5,13 +5,17 @@ require "spec_helper"
   # https://github.com/pengwynn/octokit/blob/master/lib/octokit/client/users.rb
 
   describe Elasticrepo::Extractor do
-    let(:fixture_repos ) { Yajl::Parser.parse(fixture("repositories.json").read) }
-    #subject(:live_repos)     { Elasticrepo::Extractor.new("lapaty").repositories }
+    let(:fixture_repos) { Yajl::Parser.parse(fixture("repositories.json").read) }
 
+    # when online, works with "live" GitrHub V3 APIs ( uncomment following line )
+    # subject(:live_repos)  { Elasticrepo::Extractor.new("lapaty").repositories }
+
+    # when offline, works with local fixtures ( uncomment following line )
     subject(:live_repos) { fixture_repos }
 
     describe "#new" do 
       context "the list of repos is well formed" do
+
         # show var content while rspec'ing
         it "print" do
           print "fixture_repos: #{fixture_repos[1]["id"]} \n + \n +\n"
@@ -32,27 +36,28 @@ require "spec_helper"
       end # "the list of repos is well formed"
     end # describe "#new"
 
-    describe "#extrac" do 
-      context "get list of repos starred by user" do
-        it "checks extracted fields for each repository" do
+    describe "#extract" do 
+      let(:subset) { live_repos.map!{|repo|Elasticrepo::RepoSubset.new(repo)} }
 
+      context "get list of repos starred by user" do
+        it "checks the source repository list" do
           print "\n live_repos: #{live_repos[0]} \n"
           print "\n live_repos: #{live_repos[1]} \n"
 
           print "\n live_repos: #{live_repos[0]['id']} \n"
           print "\n live_repos: #{live_repos[1]['id']} \n"
+        end
+        it "extracted fields" do
+          print "\n ________  checks extracted fields  _______ \n"
 
-          @subset = Array.new()
-          live_repos.map{|repo|@subset<<Elasticrepo::RepoSubset.new(repo)}
-        
-          print "\n _______________ extracted new repos ________________ \n"
+          print "\n subset: #{subset.class} \n"
+          print "\n subset: #{subset.size} \n"
 
-          print "\n @subset: #{@subset[0].inspect} \n"
-          print "\n @subset: #{@subset[1].inspect} \n"
+          print "\n subset: #{subset[0].inspect} \n"
+          print "\n subset: #{subset[1].inspect} \n"
 
-          print "\n @subset: #{@subset[0].id} \n"
-          print "\n @subset: #{@subset[1].id} \n"
-
+          print "\n subset: #{subset[0].id} \n"
+          print "\n subset: #{subset[1].id} \n"
         end
       end # "get list of repos starred by a user"
     end # describe "#extrac"

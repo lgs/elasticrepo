@@ -14,22 +14,16 @@ require "spec_helper"
     subject(:live_repos) { fixture_repos }
 
     describe "#new" do 
-      context "the list of repos is well formed" do
-
-        # show var content while rspec'ing
-        it "print" do
-          print "fixture_repos: #{fixture_repos[1]["id"]} \n + \n +\n"
-          print "live_repos: #{live_repos[1]["id"]} \n + \n +\n"
-        end
-  
+      context "get a list of two repos starred by user" do
+        its(:size) { should eq(2) }
+      end
+      context "compare 'fixtures' with 'live github APIs'" do
         # check well forming data set
         it { fixture_repos.should be_a(Array) }
         it { live_repos.should be_a(Array) }
         it { fixture_repos.should_not be_empty }
         it { live_repos.should_not be_empty }
-  
         # compare fixture to live API V3 
-        its(:size)      { should eq(2) }
         its(["id"])     { "#{live_repos[1]['id']}".should eq("#{fixture_repos[1]['id']}") }
         its(["owner"])  { "#{live_repos[1]['id']}".should eq("#{fixture_repos[1]['id']}") }
         its(["name"])   { "#{live_repos[1]['id']}".should eq("#{fixture_repos[1]['id']}") }
@@ -37,28 +31,42 @@ require "spec_helper"
     end # describe "#new"
 
     describe "#extract" do 
-      let(:subset) { live_repos.map!{|repo|Elasticrepo::RepoSubset.new(repo)} }
+      # fake #extract: 
+      # subject(:subset) { live_repos.map!{|repo|Elasticrepo::RepoSubset.new(repo)} }
+
+      subject(:subset) { Elasticrepo::Extractor.new("lapaty").extract }
 
       context "get list of repos starred by user" do
-        it "checks the source repository list" do
-          print "\n live_repos: #{live_repos[0]} \n"
-          print "\n live_repos: #{live_repos[1]} \n"
+        #it "checks extracted fields" do
+        #  print "\n subset: #{subset} \n"
 
-          print "\n live_repos: #{live_repos[0]['id']} \n"
-          print "\n live_repos: #{live_repos[1]['id']} \n"
-        end
-        it "extracted fields" do
-          print "\n ________  checks extracted fields  _______ \n"
+        #  print "\n subset.class : #{subset.class} \n"
+        #  print "\n subset.size : #{subset.size} \n"
 
-          print "\n subset: #{subset.class} \n"
-          print "\n subset: #{subset.size} \n"
+        #  print "\n subset[1].inspect : #{subset[0].inspect} \n"
+        #  print "\n subset[1].inspect : #{subset[1].inspect} \n"
 
-          print "\n subset: #{subset[0].inspect} \n"
-          print "\n subset: #{subset[1].inspect} \n"
+        #  print "\n subset[0].id : #{subset[0].id} \n"
+        #  print "\n subset[1].id : #{subset[1].id} \n"
 
-          print "\n subset: #{subset[0].id} \n"
-          print "\n subset: #{subset[1].id} \n"
-        end
+        #  print "\n subset[0].owner : #{subset[0].owner} \n"
+        #  print "\n subset[1].owner : #{subset[1].owner} \n"
+        #end
+
+        #it "show previous live_repos format" do
+        #   print "\n #{live_repos[0]['owner']['login']} \n"        
+        #   print "\n #{live_repos[1]['owner']['login']} \n"        
+        #end
+
+        its("checks extracted id field") { "#{live_repos[0]['id']}".should eq("#{subset[0].id}") }
+        its("checks extracted id field") { "#{live_repos[1]['id']}".should eq("#{subset[1].id}") }
+
+        its("checks extracted owner field") { "#{live_repos[0]['owner']['login']}".should eq("#{subset[0].owner}") }
+        its("checks extracted owner field") { "#{live_repos[1]['owner']['login']}".should eq("#{subset[1].owner}") }
+
+        its("checks extracted name field") { "#{live_repos[0]['name']}".should eq("#{subset[0].name}") }
+        its("checks extracted name field") { "#{live_repos[1]['name']}".should eq("#{subset[1].name}") }
+
       end # "get list of repos starred by a user"
     end # describe "#extrac"
 

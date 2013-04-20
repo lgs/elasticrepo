@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.authors           = [ "Luca G. Soave" ]
   s.has_rdoc          = false
 
-  s.files             = %w( README.md Rakefile LICENSE )
+  #s.files             = %w( README.md Rakefile LICENSE )
   s.files            += Dir.glob("lib/**/*")
   #s.files            += Dir.glob("bin/**/*")
   #s.files            += Dir.glob("man/**/*")

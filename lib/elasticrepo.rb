@@ -1,5 +1,7 @@
 require "yajl"
 require "tire"
+require 'octokit'
+
 
 module Elasticrepo 
 

@@ -1,56 +1,63 @@
 require "spec_helper"
 
-#  # API ref.: GET /users/:user/starred
-#  # http://developer.github.com/v3/repos/
-#  # https://github.com/pengwynn/octokit/blob/master/lib/octokit/client/users.rb
-
-
 describe Elasticrepo::Indexer do
 
-  let(:parsed) { Yajl::Parser.parse(fixture("repository.json").read) }
-  subject { Elasticrepo::RepoSubset.new(parsed) }
-
+   let(:indexer) { Elasticrepo::Indexer.new("lapaty") }
 
   describe "#import" do
+    subject { indexer.import }
+
+    it { print "indexer.inspect : #{indexer.inspect}" }
+    it { print "indexer.results : #{indexer.results}" }
   end
 
-  describe "#search" do
-    before(:each) do
-      @elasticrepo = Elasticrepo::Indexer.tire.index.delete
-      @elasticrepo = Elasticrepo::Indexer.create_elasticsearch_index
-
-      @repo_1 = @elasticrepo.create({
-        :name => "test user",
-        :age => 25
-      })
-      @repo_2 = @elasticrepo.create({
-        :name => "another name in the spec",
-        :age => 23
-      })
-
-      @elasticrepo.all.each do |s|
-        s.tire.update_index
-      end
-      @elasticrepo.tire.index.refresh
-    end
-
-    context "Searching" do
-      describe "users" do
-        it "should filter users by name" do
-          result = @elasticrepo.user_search(:name => "user")
-          result.count.should == 1
-          result.first.name.should == @user_1.name
-        end
-
-        it "should filter users by age" do
-          result = @elasticrepo.user_search(:age => 23)
-          result.count.should == 1
-          result.first.age.should == @user_2.age
-        end
-      end
-    end
-  end
+#  describe "GET index" do
+#    it "assigns all reports as @reports" do
+#     report = Report.create! valid_attributes
+#     get :index, {}, valid_session
+#     assigns(:reports).should include(report)
+#    end
+#  end
 end
+
+
+#  describe "#search" do
+#    before(:each) do
+#      @elasticrepo = Elasticrepo::Indexer.tire.index.delete
+#      @elasticrepo = Elasticrepo::Indexer.create_elasticsearch_index
+
+#      @repo_1 = @elasticrepo.create({
+#        :name => "test user",
+#        :age => 25
+#      })
+#      @repo_2 = @elasticrepo.create({
+#        :name => "another name in the spec",
+#        :age => 23
+#      })
+#
+#      @elasticrepo.all.each do |s|
+#        s.tire.update_index
+#      end
+#      @elasticrepo.tire.index.refresh
+#    end
+
+#    context "Searching" do
+#      describe "users" do
+#        it "should filter users by name" do
+#          result = @elasticrepo.user_search(:name => "user")
+#          result.count.should == 1
+#          result.first.name.should == @user_1.name
+#        end
+
+#        it "should filter users by age" do
+#          result = @elasticrepo.user_search(:age => 23)
+#          result.count.should == 1
+#          result.first.age.should == @user_2.age
+#        end
+#      end
+#    end
+#  end
+#end
 
 #--------------------------------------------------------------------------------
 #    context "get list of repos starred by a user" do
@@ -75,9 +82,3 @@ end
 #        its(["name"])   { "#{ockto_get[1]['id']}".should eq("#{parsed[1]['id']}") }
 #      end
 #    end
-
-
-  
-  
-  
-  

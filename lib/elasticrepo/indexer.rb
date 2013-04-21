@@ -1,6 +1,5 @@
 module Elasticrepo
   class Indexer	
-    attr_reader :results
 
     def initialize owner
       extractor = Elasticrepo::Extractor.new(owner)

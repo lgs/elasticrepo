@@ -1,19 +1,14 @@
 module Elasticrepo
   class Extractor
+    attr_reader :repos
 
     # GET /users/:user/starred 
-    # ex: /users/lapaty/starred --> array of hashes
+    # extract fields subset from each repo
+    # then get back an array of lighter repos 
 
-    # ex:
-    #     results = Elasticrepo::Extractor.new("lapaty")
-    #     results.extract
-
-    def initialize(owner)
-      @repos = Octokit.starred(owner)
-    end
-
-    def extract
-      @repos.map!{|repo|Elasticrepo::RepoSubset.new(repo)}
+    def initialize owner 
+      repos = Octokit.starred owner 
+      @repos = repos.map!{|repo|Elasticrepo::RepoSubset.new(repo)}
     end
   end
 end

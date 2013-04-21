@@ -11,7 +11,7 @@ module Elasticrepo
   autoload :Version, "elasticrepo/version"
 
   Tire::Configuration.url "http://localhost:9200"
-  Tire::Configuration.logger 'elasticsearch.log', :level => 'debug'
+  #Tire::Configuration.logger 'elasticsearch.log', :level => 'debug'
 
   #class ElasticrepoError < StandardError
   #end

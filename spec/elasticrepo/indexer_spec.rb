@@ -2,13 +2,16 @@ require "spec_helper"
 
 describe Elasticrepo::Indexer do
 
-   let(:indexer) { Elasticrepo::Indexer.new("lapaty") }
+  let(:repositories) { Elasticrepo::Extractor.new("lapaty") }
+  subject(:subset) { repositories.extract }
 
   describe "#import" do
-    subject { indexer.import }
+    subject(:indexer) { Elasticrepo::Indexer.new("lapaty").import }
 
-    it { print "indexer.inspect : #{indexer.inspect}" }
-    it { print "indexer.results : #{indexer.results}" }
+    #it { print "repositories.inspect : #{repositories.inspect} \n" }
+    it { print "subset.inspect : #{subset.inspect} \n" }
+
+    it { print "indexer.inspect : #{indexer.inspect} \n" }
   end
 
 #  describe "GET index" do
@@ -57,28 +60,3 @@ end
 #      end
 #    end
 #  end
-#end
-
-#--------------------------------------------------------------------------------
-#    context "get list of repos starred by a user" do
-#      describe "#new" do # Elasticrepo::Extractor.new("lapaty").repositories
-#        let(:parsed )   { Yajl::Parser.parse(fixture("repositories.json").read) }
-#        subject(:ockto_get) { Elasticrepo::Extractor.new("lapaty").repositories }
-  
-#        # just to show the content while rspec'ing
-#        it "print" do
-#          print "parsed: #{parsed[1]["id"]} \n + \n +\n"
-#          print "ockto_get: #{ockto_get[1]["id"]} \n + \n +\n"
-#        end
-  
-#        it { parsed.should be_a(Array) }
-#        it { ockto_get.should be_a(Array) }
-#        it { parsed.should_not be_empty }
-#        it { ockto_get.should_not be_empty }
-  
-#        its(:size)      { should eq(2) }
-#        its(["id"])     { "#{ockto_get[1]['id']}".should eq("#{parsed[1]['id']}") }
-#        its(["owner"])  { "#{ockto_get[1]['id']}".should eq("#{parsed[1]['id']}") }
-#        its(["name"])   { "#{ockto_get[1]['id']}".should eq("#{parsed[1]['id']}") }
-#      end
-#    end

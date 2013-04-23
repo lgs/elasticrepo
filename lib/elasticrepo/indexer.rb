@@ -1,16 +1,13 @@
 module Elasticrepo
   class Indexer	
+    attr_reader :extracted
 
-    def initialize owner
-      extractor = Elasticrepo::Extractor.new(owner)
-      @results  = extractor.extract 
+    def initialize(owner)
+      repos = Elasticrepo::Extractor.new(owner).repos
     end
 
     def import
       Tire.index 'repository' do
-
-      #its(:full_name) { should eq("twitter/bootstrap") }
-         
         # Create the index with proper mapping (if not exists already)
         #
         create :mappings => {
@@ -30,9 +27,9 @@ module Elasticrepo
             }
           }
         }
-         
+
         # Import documents
-        import @results
+        import @extracted
          
         # Refresh the index for immediate searching
         #

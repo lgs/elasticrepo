@@ -1,18 +1,32 @@
 require "spec_helper"
 
 describe Elasticrepo::Indexer do
+  let(:repos) { Elasticrepo::Indexer.new("lapaty") }
+  #let(:index) { repos.extracted }
 
-  let(:repositories) { Elasticrepo::Extractor.new("lapaty") }
-  subject(:subset) { repositories.extract }
+  context "print Elasticrepo::Indexer instantiation for debugging purposes" do
+    its("repos")                 { print "repos: #{repos} \n \n" }
+    its("repos.class")           { print "repos.class: #{index.class} \n \n" }
+    its("repos.inspect")                 { print "repos.inspect: #{repos.inspect} \n \n" }
 
-  describe "#import" do
-    subject(:indexer) { Elasticrepo::Indexer.new("lapaty").import }
-
-    #it { print "repositories.inspect : #{repositories.inspect} \n" }
-    it { print "subset.inspect : #{subset.inspect} \n" }
-
-    it { print "indexer.inspect : #{indexer.inspect} \n" }
+    its("repos.extracted")         { print "repos.extracted: #{repos.extracted} \n \n" }
+    its("repos.extracted.class")         { print "repos.extracted.class: #{repos.extracted.class} \n \n" }
+    its("repos.extracted.inspect")         { print "repos.extracted: #{repos.extracted.inspect} \n \n" }
   end
+
+  #context "print before instance import for debugging purposes" do 
+    #subject { index.import }
+    #its("imported") { print "imported: #{imported} \n \n" }
+    #its("imported.class") { print "imported.class: #{imported.class} \n \n" }
+    #its("imported.inspect") { print "imported.inspect: #{imported.inspect} \n \n" }
+  #end
+
+  #describe "#import" do
+    #it { subject.to_json.should include(5392501,"cainlevy","photor") }
+  #  its("imported") { print "imported #{imported} \n \n" }
+  #end
+
+#[{"id":5392501,"owner":"cainlevy","name":"photor","url":"https://api.github.com/repos/cainlevy/photor","description":"Photo Organizer (in Ruby)","created_at":"2012-08-12T22:26:08Z","pushed_at":"2013-02-19T03:11:10Z","organization":"User","full_name":"cainlevy/photor","language":"Ruby","updated_at":"2013-03-13T02:05:33Z"},{"id":612595,"owner":"aino","name":"galleria","url":"https://api.github.com/repos/aino/galleria","description":"The JavaScript Image Gallery","created_at":"2010-04-15T21:11:51Z","pushed_at":"2013-03-01T20:16:55Z","organization":"Organization","full_name":"aino/galleria","language":"JavaScript","updated_at":"2013-04-18T06:30:41Z"}]
 
 #  describe "GET index" do
 #    it "assigns all reports as @reports" do

@@ -2,24 +2,23 @@ require "spec_helper"
 
 describe Elasticrepo::Indexer do
   let(:repos) { Elasticrepo::Indexer.new("lapaty") }
-  #let(:index) { repos.extracted }
+  subject(:indexer) { repos.import }
 
   context "print Elasticrepo::Indexer instantiation for debugging purposes" do
-    its("repos")                 { print "repos: #{repos} \n \n" }
-    its("repos.class")           { print "repos.class: #{index.class} \n \n" }
-    its("repos.inspect")                 { print "repos.inspect: #{repos.inspect} \n \n" }
+    its("repos")                   { print "#{repos} \n \n" }
+    its("repos.class")             { print "#{repos.class} \n \n" }
+    its("repos.inspect")           { print "#{repos.inspect} \n \n" }
 
-    its("repos.extracted")         { print "repos.extracted: #{repos.extracted} \n \n" }
-    its("repos.extracted.class")         { print "repos.extracted.class: #{repos.extracted.class} \n \n" }
-    its("repos.extracted.inspect")         { print "repos.extracted: #{repos.extracted.inspect} \n \n" }
+    its("repos.extracted")         { print "#{repos.extracted} \n \n" }
+    its("repos.extracted.class")   { print "#{repos.extracted.class} \n \n" }
+    its("repos.extracted.inspect") { print "#{repos.extracted.inspect} \n \n" }
   end
 
-  #context "print before instance import for debugging purposes" do 
-    #subject { index.import }
-    #its("imported") { print "imported: #{imported} \n \n" }
-    #its("imported.class") { print "imported.class: #{imported.class} \n \n" }
-    #its("imported.inspect") { print "imported.inspect: #{imported.inspect} \n \n" }
-  #end
+  context "print before instance import for debugging purposes" do 
+    its("indexer.extracted") { print "indexer: #{indexer.extracted} \n \n" }
+    its("indexer.extracted.class") { print "indexer.extracted.class: #{imported.class} \n \n" }
+    its("indexer.extracted.inspect") { print "indexer.extracted.inspect: #{indexer.extracted.inspect} \n \n" }
+  end
 
   #describe "#import" do
     #it { subject.to_json.should include(5392501,"cainlevy","photor") }

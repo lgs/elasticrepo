@@ -7,4 +7,5 @@ gem 'octokit'
 gem 'tire'
 
 gem "rspec"
-gem "fakeweb"
+#gem "fakeweb"
+#gem "json_spec"

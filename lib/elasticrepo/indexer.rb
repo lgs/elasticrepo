@@ -1,6 +1,5 @@
 module Elasticrepo
   class Indexer	
-    #attr_reader :indexed
 
     def initialize(owner)
       @owner = owner
@@ -43,14 +42,6 @@ module Elasticrepo
         refresh
       end
     end # end import
-
-    def search(sub_string)
-      # search for a sub_string 
-      #
-      search = Tire::Search::Search.new(@idx)
-      search.query  { string('description:"#{sub_string}"') }
-      search.results
-    end
 
     def update
       # Just refresh the index as is 

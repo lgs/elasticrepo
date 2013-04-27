@@ -7,6 +7,14 @@ module Elasticrepo
     end
 
     def import
+      repos = Elasticrepo::Extractor.new(@owner).repos
+      index = Tire::Index.new(@idx) do
+        import repos
+        refresh
+      end
+    end 
+
+    def import_with_map
       # extract subset fields by user repositories starred list  
       # GET /users/:user/starred 
       #
@@ -21,16 +29,16 @@ module Elasticrepo
           :question => {
             :properties => {
               :id => { :type => 'integer', :analyzer => 'keyword' },
-                :owner => { :type => 'string', :analyzer => 'keyword' },
-                :name => { :type => 'string', :analyzer => 'keyword' },
-                #:full_name => { :type => 'string', :analyzer => 'keyword' },
-                :url => { :type => 'string', :analyzer => 'snowball' },
-                :description => { :type => 'string', :analyzer => 'snowball' },
-                :organization => { :type => 'string', :analyzer => 'keyword' },
-                :language => { :type => 'string', :analyzer => 'keyword' },
-                :created_at => { :type => 'date', :analyzer => 'keyword' },
-                :pushed_at => { :type => 'date', :analyzer => 'keyword' },
-                :updated_at => { :type => 'date', :analyzer => 'keyword' }
+              :owner => { :type => 'string', :analyzer => 'keyword' },
+              :name => { :type => 'string', :analyzer => 'keyword' },
+              #:full_name => { :type => 'string', :analyzer => 'keyword' },
+              :url => { :type => 'string', :analyzer => 'snowball' },
+              :description => { :type => 'string', :analyzer => 'snowball' },
+              :organization => { :type => 'string', :analyzer => 'keyword' },
+              :language => { :type => 'string', :analyzer => 'keyword' },
+              :created_at => { :type => 'date', :analyzer => 'keyword' },
+              :pushed_at => { :type => 'date', :analyzer => 'keyword' },
+              :updated_at => { :type => 'date', :analyzer => 'keyword' }
             }
           }
         }  

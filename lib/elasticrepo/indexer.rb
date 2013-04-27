@@ -8,7 +8,7 @@ module Elasticrepo
 
     def import
       repos = Elasticrepo::Extractor.new(@owner).repos
-      index = Tire::Index.new(@idx) do
+      Tire::Index.new(@idx) do
         import repos
         refresh
       end

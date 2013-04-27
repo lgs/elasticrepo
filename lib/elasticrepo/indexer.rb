@@ -48,7 +48,7 @@ module Elasticrepo
       # search for a sub_string 
       #
       search = Tire::Search::Search.new(@idx)
-      search.query  { string('description:*"#{sub_string}"*') }
+      search.query  { string('description:"#{sub_string}"') }
       search.results
     end
 

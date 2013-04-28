@@ -22,7 +22,7 @@ module Elasticrepo
 
       # index the extraction
       #
-      @index = Tire::Index.new(@idx) do 
+      Tire::Index.new(@idx) do 
         # Create the index with proper mapping (if doesn not exist already
         #
         create :mappings => {
@@ -51,16 +51,16 @@ module Elasticrepo
       end
     end # end import
 
-    def update
+    def update.refresh
       # Just refresh the index as is 
       #
-      @index.refresh
+      Tire::Index.new(@idx).refresh
     end
 
     def delete
       # delete 'repositories' index
       #
-      @index.delete
+      Tire::Index.new(@idx).delete
     end
   end # end class
 end # end module

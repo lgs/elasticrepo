@@ -7,23 +7,26 @@ module Elasticrepo
     end
 
     def import
+      # extract subset fields by user repositories starred list  
+      # GET /users/:user/starred 
+      #
       repos = Elasticrepo::Extractor.new(@owner).repos
+      # index the extraction
+      #
       Tire::Index.new(@idx) do
+        # Import documents
+        #
         import repos
+        # Refresh the index for immediate searching
+        #
         refresh
       end
     end 
 
     def import_with_map
-      # extract subset fields by user repositories starred list  
-      # GET /users/:user/starred 
-      #
       repos = Elasticrepo::Extractor.new(@owner).repos
-
-      # index the extraction
-      #
       Tire::Index.new(@idx) do 
-        # Create the index with proper mapping (if doesn not exist already
+        # Create the index with proper mapping (if doesn not exist already)
         #
         create :mappings => {
           :question => {
@@ -42,16 +45,12 @@ module Elasticrepo
             }
           }
         }  
-        # Import documents
-        #
         import repos
-        # Refresh the index for immediate searching
-        #
         refresh
       end
     end # end import
 
-    def update.refresh
+    def update
       # Just refresh the index as is 
       #
       Tire::Index.new(@idx).refresh

@@ -1,7 +1,7 @@
 elasticrepo
 ===========
 
-Indexing GitHub repository with ElasticSearch
+Indexing GitHub repositories with ElasticSearch
 ---------------------------------------------
 (
   # http://developer.github.com/v3/repos/

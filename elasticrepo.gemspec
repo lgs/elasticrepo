@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.email             = "luca.soave@gmail.com"
   s.homepage          = "http://github.com/lgs/elasticrepo"
 
+  s.add_dependency      'yajl-ruby',   '~> 1.1.0'
   s.add_dependency      'octokit',     '~> 1.24.0'
   s.add_dependency      'tire',     '~> 0.5.7'
 

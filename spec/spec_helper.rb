@@ -2,11 +2,16 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
 
 require 'elasticrepo'
-#require 'json_spec'
-#require 'fakeweb'
+require 'faraday'
 require 'octokit'
 require 'tire'
 require 'yajl'
+require 'vcr'
+
+VCR.configure do |c|  
+  c.cassette_library_dir = 'spec/vcr_cassettes'
+  c.hook_into :faraday # or webmock, fakeweb
+end
 
 def fixture_path
   File.expand_path("../fixtures", __FILE__)

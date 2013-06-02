@@ -11,10 +11,12 @@ require 'vcr'
 VCR.configure do |c|  
   c.cassette_library_dir = 'spec/vcr_cassettes'
   c.hook_into :faraday # or webmock, fakeweb
+  #c.default_cassette_options = { :serialize_with => :json  }
 end
 
 def fixture_path
-  File.expand_path("../fixtures", __FILE__)
+  #File.expand_path("../fixtures", __FILE__)
+  File.expand_path("../vcr_cassettes/v3/repos/_get/lgs", __FILE__)
 end
 
 def fixture(file)

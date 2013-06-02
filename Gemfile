@@ -6,6 +6,11 @@ gem 'yajl-ruby'
 gem 'octokit'
 gem 'tire'
 
-gem "rspec"
+
+group :development, :test do
+  gem 'rspec'
+  gem 'vcr' #http://natashatherobot.com/vcr-gem-rails-rspec/
+end
+
 #gem "fakeweb"
 #gem "json_spec"

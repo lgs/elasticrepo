@@ -14,6 +14,10 @@ VCR.configure do |c|
   #c.default_cassette_options = { :serialize_with => :json  }
 end
 
+#VCR.use_cassette('v3/repos/_get/lgs/elasticrepo', :serialize_with => :json) do
+#  Faraday.get('https://api.github.com/repos/lgs/elasticrepo')
+#end 
+
 def fixture_path
   #File.expand_path("../fixtures", __FILE__)
   File.expand_path("../vcr_cassettes/v3/repos/_get/lgs", __FILE__)

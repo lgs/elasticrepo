@@ -11,25 +11,34 @@ require "spec_helper"
       end 
     end
 
-    #let(:parsed) { Yajl::Parser.parse(fixture("repository.json").read) }
     let(:repo) { Yajl::Parser.parse(parsed) }
     subject { Elasticrepo::RepoSubset.new(repo) }
 
-    #its(:id) { print "subject: #{subject}"
-    it { print "repo: #{repo} \n \n" }
+    describe "#new" do
+      context "checks the full repo subset of extracted fields"  do
+        its(:id) { should     eq(9416045) }
+        its(:id) { should_not eq(94160450) }
 
-    context "checks the full repo subset of extracted fields"  do
-      its(:id) { should eq(94160450) }
-#      its(:owner) { should eq("lgs") }
-#      its(:name) { should eq("elasticrepo") }
-#      its(:url){ should eq("https://api.github.com/repos/lgs/elasticrepo") }
-#      its(:description) { should eq("Indexing GitHub repository with ElasticSearch") }
-      #its(:created_at) { should eq("2011-07-29T21:19:00Z") }
-      #its(:pushed_at) { should eq("2013-04-13T03:56:36Z") }
-#      its(:organization) { should eq("User") }
-#      its(:full_name) { should eq("lgs/elasticrepo") }
-#      its(:language) { should eq("Ruby") }
-      #its(:updated_at) { should eq("2013-04-13T19:12:09Z") }
+        its(:owner) { should     eq("lgs") }
+        its(:owner) { should_not eq("l-g-s") }
+
+        its(:name) { should eq("elasticrepo") }
+        its(:url){ should eq("https://api.github.com/repos/lgs/elasticrepo") }
+        its(:description) { should eq("Indexing GitHub repository with ElasticSearch") }
+
+        its(:created_at) { should     eq("2013-04-13T15:57:03Z") }
+        its(:created_at) { should_not eq("2013-05-13T15:57:03Z") }
+
+        its(:pushed_at) { should     eq("2013-06-02T09:33:42Z") }
+        its(:pushed_at) { should_not eq("2013-07-02T09:33:42Z") }
+
+        its(:organization) { should eq("User") }
+        its(:full_name) { should eq("lgs/elasticrepo") }
+        its(:language) { should eq("Ruby") }
+
+        its(:updated_at) { should eq("2013-06-02T09:33:42Z") }
+        its(:updated_at) { should_not eq("2013-07-02T09:33:42Z") }
+      end
     end
   end
 

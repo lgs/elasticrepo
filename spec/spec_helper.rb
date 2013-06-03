@@ -9,18 +9,23 @@ require 'yajl'
 require 'vcr'
 
 VCR.configure do |c|  
+  c.configure_rspec_metadata!
   c.cassette_library_dir = 'spec/vcr_cassettes'
-  c.hook_into :faraday # or webmock, fakeweb
-  #c.default_cassette_options = { :serialize_with => :json  }
+  c.hook_into :faraday 
+  c.default_cassette_options = { :serialize_with => :json  }
+  #c.ignore_request do |request|
+  #  URI(request.uri).uri == 'https://api.github.com/users/lapaty/starred'
+  #end
 end
 
-#VCR.use_cassette('v3/repos/_get/lgs/elasticrepo', :serialize_with => :json) do
-#  Faraday.get('https://api.github.com/repos/lgs/elasticrepo')
-#end 
+RSpec.configure do |c|
+  # so we can use `:vcr` rather than `:vcr => true`;
+  # in RSpec 3 this will no longer be necessary.
+  c.treat_symbols_as_metadata_keys_with_true_values = true
+end
 
 def fixture_path
-  #File.expand_path("../fixtures", __FILE__)
-  File.expand_path("../vcr_cassettes/v3/repos/_get/lgs", __FILE__)
+  File.expand_path("../fixtures", __FILE__)
 end
 
 def fixture(file)

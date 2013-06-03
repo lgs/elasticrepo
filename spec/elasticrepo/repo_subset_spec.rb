@@ -1,18 +1,13 @@
 require "spec_helper"
 
-  # API ref.: GET /repos/:owner/:repo
+  # API ref.: GET   /repos/:owner/:repo
   # http://developer.github.com/v3/repos/
 
-  describe Elasticrepo::RepoSubset do
+  describe Elasticrepo::RepoSubset, :vcr => { :cassette_name => "v3/repos/_get/lgs/elasticrepo" } do
 
-    let(:parsed) do
-      VCR.use_cassette('v3/repos/_get/lgs/elasticrepo', :serialize_with => :json) do
-        Faraday.get('https://api.github.com/repos/lgs/elasticrepo').body
-      end 
-    end
-
-    let(:repo) { Yajl::Parser.parse(parsed) }
-    subject { Elasticrepo::RepoSubset.new(repo) }
+    let(:repo) { Faraday.get('https://api.github.com/repos/lgs/elasticrepo').body }
+    let(:parsed) { Yajl::Parser.parse(repo) }
+    subject { Elasticrepo::RepoSubset.new(parsed) }
 
     describe "#new" do
       context "checks the full repo subset of extracted fields"  do

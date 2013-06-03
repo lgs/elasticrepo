@@ -4,8 +4,8 @@ require "spec_helper"
   # https://github.com/pengwynn/octokit/blob/master/lib/octokit/client/users.rb
 
 describe Elasticrepo::Extractor do
-  let(:fixture_repos)   { Yajl::Parser.parse(fixture("repositories.json").read) }
-  #let(:live_extracted) { Elasticrepo::Extractor.new("lapaty") }
+  let(:fixture_repos)  { Yajl::Parser.parse(fixture("repositories.json").read) }
+  let(:live_extracted) { Elasticrepo::Extractor.new("lapaty") }
 
   describe "#extract" do 
     
@@ -27,8 +27,7 @@ describe Elasticrepo::Extractor do
     #  end
     #end
 
-    context "extract fields subset from each repo" do
-      its("fixture_repos[0]['id']") { fixture_repos[0]['id'].should eq live_extracted.repos[0].id }
+    context "extract fields subset from each repo"s("fixture_repos[0]['id']") { fixture_repos[0]['id'].should eq live_extracted.repos[0].id }
       its("fixture_repos[0]['owner']['login']") { fixture_repos[0]['owner']['login'].should eq live_extracted.repos[0].owner['login'] }
       its("fixture_repos[0]['name']") { fixture_repos[0]['name'].should eq live_extracted.repos[0].name }
       its("fixture_repos[0]['url']") { fixture_repos[0]['url'].should eq live_extracted.repos[0].url }

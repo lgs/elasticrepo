@@ -1,6 +1,8 @@
 require "spec_helper"
 
-describe Elasticrepo::Indexer do
+describe Elasticrepo::Extractor, :vcr => { :cassette_name => "v3/users/_get/lapaty/starred" } do
+#describe Elasticrepo::Indexer do
+
   let(:elastic_repo) { Elasticrepo::Indexer.new("lapaty") }  
   subject(:import) { elastic_repo.import }
 

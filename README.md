@@ -57,4 +57,8 @@ or search with ElasticSearch sintax:
   lsoave@ubuntu:~/rails/github/elasticrepo$
   ```
 
+Copyright
+---------
 
+Copyright (c) 2013 Luca G. Soave. See LICENSE.txt for
+further details.

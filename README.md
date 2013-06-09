@@ -44,17 +44,13 @@ now search with Tire DSL sintax as usual :
 or search with ElasticSearch sintax:
 
   ```bash
-  lsoave@ubuntu:~/rails/github/elasticrepo$ curl -XGET 'http://localhost:9200/repositories/_search?q=name:photor'
+  $ curl -XGET 'http://localhost:9200/repositories/_search?q=name:photor'
 
-  {"took":184,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":1,"max_score":1.0,"hits":[{"_index":"repositories","_type":"document","_id":"5392501","_score":1.0, "_source" : {"id":5392501,"owner":"cainlevy","name":"photor","url":"https://api.github.com/repos/cainlevy/photor","description":"Photo Organizer (in Ruby)","created_at":"2012-08-12T22:26:08Z","pushed_at":"2013-02-19T03:11:10Z","organization":"User","full_name":"cainlevy/photor","language":"Ruby","updated_at":"2013-03-13T02:05:33Z"}}]}}lsoave@ubuntu:~/rails/github/elasticrepo$
+  {"took":184,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":1,"max_score":1.0,"hits":[{"_index":"repositories","_type":"document","_id":"5392501","_score":1.0, "_source" : {"id":5392501,"owner":"cainlevy","name":"photor","url":"https://api.github.com/repos/cainlevy/photor","description":"Photo Organizer (in Ruby)","created_at":"2012-08-12T22:26:08Z","pushed_at":"2013-02-19T03:11:10Z","organization":"User","full_name":"cainlevy/photor","language":"Ruby","updated_at":"2013-03-13T02:05:33Z"}}]}}
 
-  lsoave@ubuntu:~/rails/github/elasticrepo$ curl -XGET 'http://localhost:9200/repositories/_search?q=description:*ganizer'
+  $ curl -XGET 'http://localhost:9200/repositories/_search?q=description:*ganizer'
 
-  {"took":2,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":1,"max_score":1.0,"hits":[{"_index":"repositories","_type":"document","_id":"5392501","_score":1.0, "_source" : {"id":5392501,"owner":"cainlevy","name":"photor","url":"https://api.github.com/repos/cainlevy/photor","description":"Photo Organizer (in Ruby)","created_at":"2012-08-12T22:26:08Z","pushed_at":"2013-02-19T03:11:10Z","organization":"User","full_name":"cainlevy/photor","language":"Ruby","updated_at":"2013-03-13T02:05:33Z"}}]}}lsoave@ubuntu:~/rails/github/elasticrepo$
-
-  ":"User","full_name":"cainlevy/photor","language":"Ruby","updated_at":"2013-03-13T02:05:33Z"}}]}}lsoave@ubuntu:~/rails/github/elasticrepo$
-
-  lsoave@ubuntu:~/rails/github/elasticrepo$
+  {"took":2,"timed_out":false,"_shards":{"total":5,"successful":5,"failed":0},"hits":{"total":1,"max_score":1.0,"hits":[{"_index":"repositories","_type":"document","_id":"5392501","_score":1.0, "_source" : {"id":5392501,"owner":"cainlevy","name":"photor","url":"https://api.github.com/repos/cainlevy/photor","description":"Photo Organizer (in Ruby)","created_at":"2012-08-12T22:26:08Z","pushed_at":"2013-02-19T03:11:10Z","organization":"User","full_name":"cainlevy/photor","language":"Ruby","updated_at":"2013-03-13T02:05:33Z"}}]}}
   ```
 
 Copyright

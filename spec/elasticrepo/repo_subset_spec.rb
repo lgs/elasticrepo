@@ -1,8 +1,8 @@
 require "spec_helper"
 
-  # API ref.: GET   /repos/:owner/:repo
+  # GitHub API ref.: 
+  # GET /repos/:owner/:repo
   # http://developer.github.com/v3/repos/
-
   describe Elasticrepo::RepoSubset, :vcr => { :cassette_name => "v3/repos/_get/lgs/elasticrepo" } do
 
     let(:repo) { Faraday.get('https://api.github.com/repos/lgs/elasticrepo').body }
@@ -36,16 +36,3 @@ require "spec_helper"
       end
     end
   end
-
-#    describe "GET /repos/:owner/:repo" do
-#      it 'gets "lgs/elasticrepo" repository (JSON)' do
-#        VCR.use_cassette('v3/repos/#get/lgs/elasticrepo') do
-#          response = Faraday.get 'https://api.github.com/repos/lgs/elasticrepo'
-#          response.body.should include("1573")
-#          response.body.should include("9416045")
-#          response.body.should include("elasticrepo")
-#          response.body.should include("lgs/elasticrepo")
-#          response.body.should include("Indexing GitHub repository with ElasticSearch")
-#        end
-#      end
-#    end

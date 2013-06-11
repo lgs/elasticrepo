@@ -1,16 +1,15 @@
 module Elasticrepo
   class Indexer	
 
-    def initialize(owner)
-      @owner = owner
+    def initialize
       @idx = "repositories"
     end
-
-    def import
-      # extract subset fields by user repositories starred list  
-      # GET /users/:user/starred 
-      #
-      repos = Elasticrepo::Extractor.new(@owner).repos
+    
+    # List user repositories
+    # GET /users/:user/starred
+    # http://developer.github.com/v3/repos/#list-user-repositories
+    def starred(owner)
+      repos = Elasticrepo::Extractor.new(owner).repos
       # index the extraction
       #
       Tire::Index.new(@idx) do

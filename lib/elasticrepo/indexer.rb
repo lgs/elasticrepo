@@ -5,9 +5,11 @@ module Elasticrepo
       @idx = "repositories"
     end
     
-    # List user repositories
+    # given a user, extract his starred repositories, then index the list with Tire
+    #
     # GET /users/:user/starred
     # http://developer.github.com/v3/repos/#list-user-repositories
+    #
     def starred(owner)
       repos = Elasticrepo::Extractor.new(owner).repos
       # index the extraction
@@ -19,7 +21,7 @@ module Elasticrepo
         # Refresh the index for immediate searching
         #
         refresh
-      end
+      end 
     end 
 
     def import_with_map

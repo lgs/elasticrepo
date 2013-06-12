@@ -14,12 +14,12 @@ index a list of 'starred' repositories per user :
   ```bash
   2.0.0-p0 :001 > require 'elasticrepo'
    => true 
-  2.0.0-p0 :002 > indexer = Elasticrepo::Indexer.new("lapaty")
-   => #<Elasticrepo::Indexer:0xa837f34 @owner="lapaty", @idx="repositories"> 
+  2.0.0-p0 :002 > indexer = Elasticrepo::Indexer.new
+   => #<Elasticrepo::Indexer:0xaa7a544 @idx="repositories">
   2.0.0-p0 :003 > 
 
-  2.0.0-p0 :04 >   indexer.import
-   => #<Tire::Index:0xa04135c @name="repositories", @options={:mappings=>{:question=>{:properties=>{:id=>{:type=>"integer", :analyzer=>"keyword"}, :owner=>{:type=>"string", :analyzer=>"keyword"}, :name=>{:type=>"string", :analyzer=>"keyword"}, :url=>{:type=>"string", :analyzer=>"snowball"}, :description=>{:type=>"string", :analyzer=>"snowball"}, :organization=>{:type=>"string", :analyzer=>"keyword"}, :language=>{:type=>"string", :analyzer=>"keyword"}, :created_at=>{:type=>"date", :analyzer=>"keyword"}, :pushed_at=>{:type=>"date", :analyzer=>"keyword"}, :updated_at=>{:type=>"date", :analyzer=>"keyword"}}}}}, @response=#<Tire::HTTP::Response:0xa0bf48c @body="{\"ok\":true,\"_shards\":{\"total\":10,\"successful\":5,\"failed\":0}}", @code=200, @headers={:content_type=>"application/json; charset=UTF-8", :content_length=>"60"}>> 
+  2.0.0-p0 :04 >  indexer.starred("lapaty")
+   => #<Tire::Index:0xa8c0384 @name="repositories", @response=#<Tire::HTTP::Response:0xa87f910 @body="{\"ok\":true,\"_shards\":{\"total\":10,\"successful\":5,\"failed\":0}}", @code=200, @headers={:content_type=>"application/json; charset=UTF-8", :content_length=>"60"}>>
   2.0.0-p0 :05 > 
   ```
 

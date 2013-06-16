@@ -4,7 +4,6 @@ describe Elasticrepo::Indexer, :vcr => { :cassette_name => "v3/users/_get/lapaty
 
   #let(:indexer) { Elasticrepo::Indexer.new }  
   subject(:starred_import) { Elasticrepo::Indexer.starred("lapaty") }
-
   
   describe "#starred" do
     context "print starred_import instance for debugging purposes" do 

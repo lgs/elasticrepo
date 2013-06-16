@@ -1,9 +1,6 @@
 module Elasticrepo
   module Indexer	
     INDEX = 'repositories'
-    #def initialize
-    #  @idx = "repositories"
-    #end
     
     # given a user, extract his starred repositories, then index the list with Tire
     #
@@ -11,7 +8,7 @@ module Elasticrepo
     # http://developer.github.com/v3/repos/#list-user-repositories
     #
     def self.starred(owner)
-      repos = Elasticrepo::Extractor.new(owner).repos
+      repos = Elasticrepo::Extractor.repos(owner)
       # index the extraction
       #
       Tire::Index.new(INDEX) do
@@ -24,32 +21,32 @@ module Elasticrepo
       end 
     end 
 
-    def import_with_map
-      repos = Elasticrepo::Extractor.new(@owner).repos
-      Tire::Index.new(INDEX) do 
+    #def import_with_map
+    #  repos = Elasticrepo::Extractor.new(@owner).repos
+    #  Tire::Index.new(INDEX) do 
         # Create the index with proper mapping (if doesn not exist already)
         #
-        create :mappings => {
-          :question => {
-            :properties => {
-              :id => { :type => 'integer', :analyzer => 'keyword' },
-              :owner => { :type => 'string', :analyzer => 'keyword' },
-              :name => { :type => 'string', :analyzer => 'keyword' },
-              #:full_name => { :type => 'string', :analyzer => 'keyword' },
-              :url => { :type => 'string', :analyzer => 'snowball' },
-              :description => { :type => 'string', :analyzer => 'snowball' },
-              :organization => { :type => 'string', :analyzer => 'keyword' },
-              :language => { :type => 'string', :analyzer => 'keyword' },
-              :created_at => { :type => 'date', :analyzer => 'keyword' },
-              :pushed_at => { :type => 'date', :analyzer => 'keyword' },
-              :updated_at => { :type => 'date', :analyzer => 'keyword' }
-            }
-          }
-        }  
-        import repos
-        refresh
-      end
-    end # end import
+    #    create :mappings => {
+    #      :question => {
+    #        :properties => {
+    #          :id => { :type => 'integer', :analyzer => 'keyword' },
+    #          :owner => { :type => 'string', :analyzer => 'keyword' },
+    #          :name => { :type => 'string', :analyzer => 'keyword' },
+    #          #:full_name => { :type => 'string', :analyzer => 'keyword' },
+    #          :url => { :type => 'string', :analyzer => 'snowball' },
+    #          :description => { :type => 'string', :analyzer => 'snowball' },
+    #          :organization => { :type => 'string', :analyzer => 'keyword' },
+    #          :language => { :type => 'string', :analyzer => 'keyword' },
+    #          :created_at => { :type => 'date', :analyzer => 'keyword' },
+    #          :pushed_at => { :type => 'date', :analyzer => 'keyword' },
+    #          :updated_at => { :type => 'date', :analyzer => 'keyword' }
+    #        }
+    #      }
+    #    }  
+    #    import repos
+    #    refresh
+    #  end
+    #end # end import
 
     def update
       # Just refresh the index as is 

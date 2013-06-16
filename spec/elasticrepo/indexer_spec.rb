@@ -2,8 +2,8 @@ require "spec_helper"
 
 describe Elasticrepo::Indexer, :vcr => { :cassette_name => "v3/users/_get/lapaty/starred" } do
 
-  let(:indexer) { Elasticrepo::Indexer.new }  
-  subject(:starred_import) { indexer.starred("lapaty") }
+  #let(:indexer) { Elasticrepo::Indexer.new }  
+  subject(:starred_import) { Elasticrepo::Indexer.starred("lapaty") }
 
   
   describe "#starred" do

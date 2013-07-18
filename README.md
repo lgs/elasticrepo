@@ -1,6 +1,6 @@
-
 Indexing GitHub repositories with ElasticSearch
 -----------------------------------------------
+[![Code Climate](https://codeclimate.com/github/lgs/elasticrepo.png)](https://codeclimate.com/github/lgs/elasticrepo)
 
   ```bash
   (
